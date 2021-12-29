@@ -1,12 +1,10 @@
 import random
-
 import sys
-
+import pygame
 from astar import astar
 
-import pygame
-
 pygame.init()
+pygame.font.init()
 
 SCREEN_HEIGHT = 768
 SCREEN_WIDTH = 768
@@ -39,9 +37,8 @@ maze = [ [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
 kinderki = False
-pygame.font.init()
-myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
+myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
 class Reindeer:
     def __init__(self, Y, X, Img):
@@ -51,12 +48,10 @@ class Reindeer:
 
     def draw(self):
         screen.blit(self.Img, (self.X, self.Y))
-
     last_move = 0
 
     def move(self):
         keys = pygame.key.get_pressed()
-
         if keys[pygame.K_LEFT]: #1
             if maze[self.Y // 64][(self.X - IMG_SIZE) // 64] != 1:
                 self.X -= IMG_SIZE
@@ -99,8 +94,7 @@ class Gingerbread:
                     break
     def found(self, reindeer_position):
         if self.X == reindeer_position[1] and self.Y == reindeer_position[0]:
-            return True
-            
+            return True 
         return False
 
 class Score:
@@ -207,7 +201,6 @@ def victory(time):
         screen.blit(text1, text_rect)
         text_rect = text2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-240))
         screen.blit(text2, text_rect)
-        
 
         m += 1
 
@@ -278,7 +271,6 @@ def start_the_game():
         delta += clock.tick(60) / 1000.0
         while delta > 1 / max_tps:
             T += 1 / max_tps
-            #print(T)
             delta -= 1 / max_tps
 
             reindeer.move()
